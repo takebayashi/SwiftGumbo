@@ -3,7 +3,7 @@ import CGumbo
 public struct GumboVectorIterator: IteratorProtocol {
     public typealias Element = UnsafeMutableRawPointer?
 
-    var datum: UnsafeMutablePointer<UnsafeMutableRawPointer?>
+    var datum: UnsafeMutablePointer<UnsafeMutableRawPointer?>?
     var length: Int
     var position: Int
 
@@ -11,9 +11,12 @@ public struct GumboVectorIterator: IteratorProtocol {
         if position >= length {
             return nil
         }
-        let data = datum.advanced(by: position).pointee
-        position += 1
-        return data
+        if let datum = datum {
+            let data = datum.advanced(by: position).pointee
+            position += 1
+            return data
+        }
+        return nil
     }
 }
 
