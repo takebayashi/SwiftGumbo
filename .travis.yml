@@ -6,6 +6,9 @@ sudo: required
 dist: trusty
 osx_image: xcode8
 install:
+  - wget https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz
+  - tar xzf v0.10.1.tar.gz
+  - cd gumbo-parser-0.10.1 && ./autogen.sh && ./configure && make && sudo make install && cd ..
   - git clone --depth 1 https://github.com/kylef/swiftenv.git ~/.swiftenv
   - export SWIFTENV_ROOT="$HOME/.swiftenv"
   - export PATH="$SWIFTENV_ROOT/bin:$SWIFTENV_ROOT/shims:$PATH"
