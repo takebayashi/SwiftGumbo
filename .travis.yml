@@ -13,5 +13,7 @@ install:
   - export SWIFTENV_ROOT="$HOME/.swiftenv"
   - export PATH="$SWIFTENV_ROOT/bin:$SWIFTENV_ROOT/shims:$PATH"
   - if [ -f ".swift-version" ] || [ -n "$SWIFT_VERSION" ]; then swiftenv install -s; else swiftenv install -s; fi
+env:
+  - LD_LIBRARY_PATH=/usr/local/lib
 script:
   - swift build && swift test
