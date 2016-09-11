@@ -1,4 +1,5 @@
 import XCTest
+import CGumbo
 @testable import SwiftGumbo
 
 class SwiftGumboTests: XCTestCase {
@@ -34,10 +35,20 @@ class SwiftGumboTests: XCTestCase {
         }
     }
 
+    func testTag() {
+        let tags = [GUMBO_TAG_TITLE, GUMBO_TAG_P, GUMBO_TAG_A]
+        let names = ["title", "p", "a"]
+        for tag in tags {
+            let index = tags.index(of: tag)!
+            XCTAssertEqual(tag.name, names[index])
+            XCTAssertEqual(Tag(name: names[index]), tag)
+        }
+    }
 
     static var allTests: [(String, (SwiftGumboTests) -> () throws -> Void)] {
         return [
             ("testParse", testParse),
+            ("testTag", testTag),
         ]
     }
 }

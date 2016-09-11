@@ -21,8 +21,6 @@ fileprivate func mapPointerToStruct(rawNode: UnsafeMutablePointer<GumboNode>) ->
     }
 }
 
-public typealias TagType = GumboTag
-
 public struct DocumentNode: Node {
     public typealias RawType = GumboDocument
 
@@ -39,7 +37,7 @@ public struct ElementNode: Node {
     public typealias RawType = GumboElement
 
     public let children: [OpaqueNode]
-    public let tag: TagType
+    public let tag: Tag
     public let attributes: [Attribute]
 
     public init(rawNode: GumboElement) {
