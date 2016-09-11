@@ -1,6 +1,7 @@
 import CGumbo
 
 public protocol OpaqueNode {
+    var children: [OpaqueNode] { get }
 }
 
 public protocol Node: OpaqueNode {
@@ -54,6 +55,7 @@ public struct ElementNode: Node {
 public struct TextNode: Node {
     public typealias RawType = GumboText
 
+    public let children: [OpaqueNode] = []
     public let text: String
 
     public init(rawNode: GumboText) {
