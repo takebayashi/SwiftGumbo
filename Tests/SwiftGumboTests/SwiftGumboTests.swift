@@ -45,6 +45,24 @@ class SwiftGumboTests: XCTestCase {
         }
     }
 
+    func testAttributes() {
+        let attrs = [
+            Attribute(name: "a", value: "aa"),
+            Attribute(name: "b", value: "bb"),
+            Attribute(name: "c", value: "cc"),
+        ]
+        if let b = attrs["b"] {
+            XCTAssertEqual(b.value, "bb")
+        } else {
+            XCTFail("failed to access attribute")
+        }
+        let classAttr = Attribute(name: "class", value: "class1 class2  class3")
+        XCTAssertEqual(
+            classAttr.valuesSeparatedByWhiteSpaces,
+            ["class1", "class2", "class3"]
+        )
+    }
+
     static var allTests: [(String, (SwiftGumboTests) -> () throws -> Void)] {
         return [
             ("testParse", testParse),
