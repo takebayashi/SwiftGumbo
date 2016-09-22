@@ -17,3 +17,17 @@ public struct ElementNode: Node {
             .map { Attribute(rawNode: $0.pointee) }
     }
 }
+
+extension ElementNode {
+    public var id: String? {
+        get {
+            return self.attributes["id"]?.value
+        }
+    }
+
+    public var classes: [String] {
+        get {
+            return self.attributes["class"]?.valuesSeparatedByWhiteSpaces ?? []
+        }
+    }
+}
