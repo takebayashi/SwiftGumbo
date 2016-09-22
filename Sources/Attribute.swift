@@ -37,3 +37,9 @@ extension Attribute {
         }
     }
 }
+
+extension Collection where Iterator.Element == Attribute {
+    public subscript(key: String) -> Attribute? {
+        return self.first { $0.name == key }
+    }
+}
