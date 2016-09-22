@@ -1,6 +1,10 @@
 import CGumbo
 
-public struct Attribute {
+public struct Attribute: Node {
+    public typealias RawType = GumboAttribute
+
+    public let children: [OpaqueNode] = []
+
     public let name: String
     public let value: String
 
