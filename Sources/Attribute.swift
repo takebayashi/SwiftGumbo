@@ -4,6 +4,11 @@ public struct Attribute {
     public let name: String
     public let value: String
 
+    public init(name: String, value: String) {
+        self.name = name
+        self.value = value
+    }
+
     public init(rawNode: GumboAttribute) {
         self.name = String(cString: rawNode.name)
         self.value = String(cString: rawNode.value)
