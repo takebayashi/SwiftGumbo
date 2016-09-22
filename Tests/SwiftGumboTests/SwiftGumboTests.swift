@@ -4,7 +4,7 @@ import CGumbo
 
 class SwiftGumboTests: XCTestCase {
     func testParse() {
-        let html = "<html><head></head><body><p>test</p><p id='p2'>test2</p></body></html>"
+        let html = "<html><head></head><body><p>test</p><p id='p2'>test2</p><!--test--></body></html>"
         guard let document = parse(html: html) else {
             XCTFail("failed parsing html")
             return
@@ -15,7 +15,7 @@ class SwiftGumboTests: XCTestCase {
             XCTAssertEqual(root.children.count, 2)
             // /html/body
             if let body = root.children[1] as? ElementNode {
-                XCTAssertEqual(body.children.count, 2)
+                XCTAssertEqual(body.children.count, 3)
                 // /html/body/p[1]
                 if let p = body.children[1] as? ElementNode {
                     if let attr = p.attributes.first {
@@ -26,6 +26,12 @@ class SwiftGumboTests: XCTestCase {
                     }
                 } else {
                     XCTFail("ElementNode should be return, but not")
+                }
+                // /html/body/<comment>
+                if let c = body.children[2] as? CommentNode {
+                    XCTAssertEqual(c.text, "test")
+                } else {
+                    XCTFail("A comment should be, but not")
                 }
             } else {
                 XCTFail("ElementNode should be return, but not")

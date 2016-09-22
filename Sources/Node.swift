@@ -17,6 +17,12 @@ fileprivate func mapPointerToStruct(rawNode: UnsafeMutablePointer<GumboNode>) ->
         return ElementNode(rawNode: rawNode.pointee.v.element)
     case GUMBO_NODE_TEXT:
         return TextNode(rawNode: rawNode.pointee.v.text)
+    case GUMBO_NODE_CDATA:
+        return CdataNode(rawNode: rawNode.pointee.v.text)
+    case GUMBO_NODE_COMMENT:
+        return CommentNode(rawNode: rawNode.pointee.v.text)
+    case GUMBO_NODE_WHITESPACE:
+        return WhitespaceNode(rawNode: rawNode.pointee.v.text)
     default:
         fatalError()
     }
@@ -53,6 +59,39 @@ public struct ElementNode: Node {
 }
 
 public struct TextNode: Node {
+    public typealias RawType = GumboText
+
+    public let children: [OpaqueNode] = []
+    public let text: String
+
+    public init(rawNode: GumboText) {
+        self.text = String(cString: rawNode.text)
+    }
+}
+
+public struct CdataNode: Node {
+    public typealias RawType = GumboText
+
+    public let children: [OpaqueNode] = []
+    public let text: String
+
+    public init(rawNode: GumboText) {
+        self.text = String(cString: rawNode.text)
+    }
+}
+
+public struct CommentNode: Node {
+    public typealias RawType = GumboText
+
+    public let children: [OpaqueNode] = []
+    public let text: String
+
+    public init(rawNode: GumboText) {
+        self.text = String(cString: rawNode.text)
+    }
+}
+
+public struct WhitespaceNode: Node {
     public typealias RawType = GumboText
 
     public let children: [OpaqueNode] = []
