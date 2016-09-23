@@ -69,6 +69,20 @@ class SwiftGumboTests: XCTestCase {
         )
     }
 
+    func testQueries() {
+        let html = "<ul><li class=\"a\">aa</li><li id=\"b\">bb</li><li class=\"a\">cc</li></ul>"
+        guard let document = parse(html: html) else {
+            XCTFail("failed parsing html")
+            return
+        }
+        if let _ = document.element(byId: "b") {
+            // pass
+        } else {
+            XCTFail("li#b should be returned, but not")
+        }
+        XCTAssertEqual(document.elements(byClassName: "a").count, 2)
+    }
+
     static var allTests: [(String, (SwiftGumboTests) -> () throws -> Void)] {
         return [
             ("testParse", testParse),

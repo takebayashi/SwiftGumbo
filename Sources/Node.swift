@@ -27,3 +27,15 @@ internal func mapPointerToStruct(rawNode: UnsafeMutablePointer<GumboNode>) -> Op
         fatalError()
     }
 }
+
+extension OpaqueNode {
+    public func recursiveFlatMap<R>(_ transform: (OpaqueNode) throws -> R?) rethrows -> [R] {
+        let selfResult = try transform(self)
+        let childrenResults = try self.children.flatMap { child in
+            return try child.recursiveFlatMap(transform)
+        }
+        var all: [R] = selfResult != nil ? [selfResult!] : []
+        all.append(contentsOf: childrenResults)
+        return all
+    }
+}
